@@ -1,30 +1,3 @@
-from simulador.models import FinanciamentoSimulacaoEntrada
-
-# Armazena os últimos valores informados
-valores_anteriores = {}
-
-def pedir_input(nome, tipo=float, obrigatorio=True, sufixo="") -> float:
-    atual = valores_anteriores.get(nome)
-    label = f"{nome.replace('_', ' ').capitalize()}"
-
-    if atual is not None:
-        entrada = input(f"{label} [atual: {atual}{sufixo}]: ").strip()
-    else:
-        entrada = input(f"{label}{sufixo}: ").strip()
-
-    if entrada == "":
-        if atual is not None:
-            return atual
-        elif not obrigatorio:
-            return None
-        else:
-            raise ValueError(f"{label} é obrigatório.")
-    
-    valor = tipo(entrada.replace(",", "."))
-    valores_anteriores[nome] = valor
-    return valor
-
-
 def exibir_menu() -> FinanciamentoSimulacaoEntrada:
     print("=== Simulador de Financiamento ===")
     
@@ -49,7 +22,7 @@ def exibir_menu() -> FinanciamentoSimulacaoEntrada:
         if parametro < valor_imovel - entrada:
             raise ValueError("O valor desejado está abaixo do valor financiado. Simulação impossível.")
 
-    dados = FinanciamentoSimulacaoEntrada(
+    return FinanciamentoSimulacaoEntrada(
         tipo_simulacao=tipo,
         valor_imovel=valor_imovel,
         entrada=entrada,
@@ -62,14 +35,3 @@ def exibir_menu() -> FinanciamentoSimulacaoEntrada:
         encargos_fixos_mensais=encargos_fixos_mensais,
         parametro=parametro
     )
-
-    print("\n--- Revisar Simulação ---")
-    for campo, valor in dados.__dict__.items():
-        print(f"{campo.replace('_', ' ').capitalize()}: {valor}")
-
-    confirmar = input("\nConfirmar? (s/n): ").strip().lower()
-    if confirmar == "s":
-        return dados
-    else:
-        print("\n🌀 Reiniciando entrada de dados...\n")
-        return exibir_menu()  # reinicia o processo
