@@ -1,4 +1,39 @@
+from simulador.models import FinanciamentoSimulacaoEntrada
+
+# Armazena os últimos valores informados durante a execução
+valores_anteriores = {}
+
+def pedir_input(nome, tipo=float, obrigatorio=True, sufixo="") -> float:
+    """
+    Solicita entrada do usuário, mantendo o valor anterior se não for informado.
+    Converte o valor para o tipo especificado.
+    """
+    atual = valores_anteriores.get(nome)
+    label = f"{nome.replace('_', ' ').capitalize()}"
+
+    if atual is not None:
+        entrada = input(f"{label} [atual: {atual}{sufixo}]: ").strip()
+    else:
+        entrada = input(f"{label}{sufixo}: ").strip()
+
+    if entrada == "":
+        if atual is not None:
+            return atual
+        elif not obrigatorio:
+            return None
+        else:
+            raise ValueError(f"{label} é obrigatório.")
+    
+    valor = tipo(entrada.replace(",", "."))
+    valores_anteriores[nome] = valor
+    return valor
+
+
 def exibir_menu() -> FinanciamentoSimulacaoEntrada:
+    """
+    Exibe um menu interativo para coleta de parâmetros da simulação.
+    Retorna um objeto FinanciamentoSimulacaoEntrada com os dados preenchidos.
+    """
     print("=== Simulador de Financiamento ===")
     
     tipo = input("Tipo de simulação ('prazo' ou 'valor'): ").strip().lower()
