@@ -1,0 +1,32 @@
+{
+  "administradora": "Exemplo Consórcios",
+  "grupo": "1234",
+  "cota": "56",
+  "carta_credito_inicial": 250000,
+  "prazo_total_meses": 180,
+
+  "indice_correcao": "INCC",
+  "correcao_modo": "anual_constante",
+  "correcao_anual": 0.05,
+  "correcao_serie_mensal": [],
+
+  "taxa_adm_total_pct": 16.0,
+  "taxa_adm_forma": "diluida",
+  "fundo_reserva_pct": 2.0,
+  "seguro_mensal_valor": 0.0,
+  "taxa_adesao_valor": 0.0,
+  "taxas_contemplacao_valor": 800.0,
+
+  "parcela_reduzida": true,
+  "parcela_reduzida_pct": 70.0,
+  "parcela_reduzida_meses": 12,
+
+  "lance": { "tipo": "livre", "percent_carta": 25.0, "fonte": "proprio" },
+  "mes_contemplacao_alvo": 3,
+
+  "hipoteses": {
+    "aluguel_mensal_enquanto_espera": 1800.0,
+    "taxa_desconto_anual": 0.10,
+    "crescimento_preco_imovel_anual": 0.04
+  }
+}
